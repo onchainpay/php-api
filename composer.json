@@ -1,0 +1,17 @@
+{
+    "name": "onchainpay/php-api",
+    "description": "",
+    "keywords": ["onchainpay"],
+    "license": "MIT",
+    "homepage": "https://onchainpay.io/",
+    "require": {
+        "php": "^7.4|^8.0",
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "OnChainPay\\": "src/"
+        }
+    }
+}
