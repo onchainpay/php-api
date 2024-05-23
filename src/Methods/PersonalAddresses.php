@@ -1,18 +1,12 @@
-<?php namespace OnChainPay;
+<?php namespace OnChainPay\Methods;
 
-class PersonalAddressesApi
+use OnChainPay\Exception;
+use OnChainPay\Extends\Method;
+
+class PersonalAddresses extends Method
 {
-    protected Instance $apiInstance;
-
-    public function __construct(string $publicKey, string $privateKey)
-    {
-        $this->apiInstance = new Instance($publicKey, $privateKey, 'https://ocp.onchainpay.io/api-gateway/personal-addresses');
-        return $this;
-    }
-
     /**
      * Create/Update user data
-     *
      * @param string $clientId External user identificator (in your system)
      * @param string $clientEmail User's email
      * @param string|null $clientName User's name
@@ -30,36 +24,33 @@ class PersonalAddressesApi
         $params = compact('clientId', 'clientEmail');
         if($clientName) $params['clientName'] = $clientName;
         if($depositWebhookUrl) $params['depositWebhookUrl'] = $depositWebhookUrl;
-        return $this->apiInstance->request('create-user', $params);
+        return $this->instance->request('personal-addresses/create-user', $params);
     }
 
     /**
      * Get user data by providing its identificator
-     *
      * @param string $id User ID
      * @return array
      * @throws Exception
      */
     public function getUser(string $id): array
     {
-        return $this->apiInstance->request('get-user', compact('id'));
+        return $this->instance->request('personal-addresses/get-user', compact('id'));
     }
 
     /**
      * Get user data by providing external user identificator
-     *
      * @param string $clientId External user ID (in your system)
      * @return array
      * @throws Exception
      */
     public function getUserByClientId(string $clientId): array
     {
-        return $this->apiInstance->request('get-user', compact('clientId'));
+        return $this->instance->request('personal-addresses/get-user', compact('clientId'));
     }
 
     /**
      * Get the address for the user in the specified coin and network
-     *
      * @param string $id User ID
      * @param string $currency 	Currency
      * @param string $network Network
@@ -71,12 +62,11 @@ class PersonalAddressesApi
     {
         $params = compact('id', 'currency', 'network');
         if($renewAddress === true) $params['renewAddress'] = true;
-        return $this->apiInstance->request('get-user-address', $params);
+        return $this->instance->request('personal-addresses/get-user-address', $params);
     }
 
     /**
      * The method allows you to get all the user's personal addresses.
-     *
      * @param string $id User ID
      * @param bool $onlyActive Filter by parameter isActive
      * @return array
@@ -86,6 +76,6 @@ class PersonalAddressesApi
     {
         $params = compact('id');
         if($onlyActive === true) $params['isActive'] = true;
-        return $this->apiInstance->request('get-user-addresses', $params);
+        return $this->instance->request('personal-addresses/get-user-addresses', $params);
     }
 }

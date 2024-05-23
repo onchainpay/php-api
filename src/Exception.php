@@ -4,8 +4,8 @@ class Exception extends \Exception
 {
     protected $message = 'Unknown exception';
     protected $code    = 0;
-    protected $file;
-    protected $line;
+    protected string $file;
+    protected int $line;
 
     /**
      * @throws Exception
@@ -18,7 +18,7 @@ class Exception extends \Exception
         parent::__construct($message, $code);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return sprintf(
             "%s '%s' in %s(%s)\n%s",

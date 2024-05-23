@@ -1,15 +1,15 @@
 # OnChainPay PHP-API
 
-This package makes it easy [OnChainPay Api](https://documenter.getpostman.com/view/21899690/UzJQptyu).
+This package makes it easy [OnChainPay Api](https://docs.onchainpay.io/).
 
 ## Installation
 
-Download this package and include `/php-api/vendor/autoload.php`
+`composer require onchainpay/php-api`
 
 ## Use
 
 Go to your personal account
-[https://onchainpay.io/merchant/api-keys](https://onchainpay.io/merchant/api-keys)
+[https://ocp.onchainpay.io/api-keys](https://ocp.onchainpay.io/api-keys)
 and get api-keys.
 
 *Substitute keys in class call:*
@@ -17,7 +17,7 @@ and get api-keys.
 ```php
 include_once ('php-api/vendor/autoload.php');
 
-$onChainPayApi = new \OnChainPay\Api('__PUBLIC_KEY__', '__PRIVATE_KEY__');
+$onChainPayApi = new OnChainPay\Api('__PUBLIC_KEY__', '__PRIVATE_KEY__');
 ```
 
 ### Check signature
@@ -28,7 +28,7 @@ You can test your signature within this method.
 $checkSignature = false;
 try {
     $checkSignature = $onChainPayApi->verifySignature();
-} catch (\OnChainPay\Exception $err) {
+} catch (OnChainPay\Exception $err) {
     echo $err;
 }
 
@@ -43,7 +43,7 @@ Get list of available currencies for depositing/withdrawing
 $avalableCurrencies = [];
 try {
     $avalableCurrencies = $onChainPayApi->getAvailableCurrenciesList();
-} catch (\OnChainPay\Exception $err) {
+} catch (OnChainPay\Exception $err) {
     echo $err;
 }
 
@@ -74,8 +74,8 @@ Get info about advanced balance by its id
 ```php
 $balance = null;
 try {
-    $balance = $onChainPayApi->getAdvancedBalanceInfo($balanceId);
-} catch (\OnChainPay\Exception $err) {
+    $balance = $onChainPayApi->account->getAdvancedBalanceInfo($balanceId);
+} catch (OnChainPay\Exception $err) {
     echo $err;
 }
 
@@ -92,8 +92,8 @@ Or get list of advanced balances of user
 ```php
 $balances = [];
 try {
-    $balances = $onChainPayApi->getAdvancedBalancesList();
-} catch (\OnChainPay\Exception $err) {
+    $balances = $onChainPayApi->account->getAdvancedBalancesList();
+} catch (OnChainPay\Exception $err) {
     echo $err;
 }
 

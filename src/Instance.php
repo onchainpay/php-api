@@ -9,6 +9,7 @@ class Instance
     private float $nonce;
     private array $params = [];
     private string $baseUrl;
+    private ?string $advId = null;
 
 
     public function __construct(string $publicKey, string $privateKey, string $baseUrl = 'https://ocp.onchainpay.io/api-gateway')
@@ -39,6 +40,9 @@ class Instance
     {
         if($params)
             $this->params = array_merge($this->params, $params);
+
+        ksort($this->params);
+
         return $this;
     }
 
@@ -105,5 +109,22 @@ class Instance
         }
 
         return $response['response'] ?? [];
+    }
+
+
+    /**
+     * Get id advanced balance
+     * @return string
+     * @throws Exception
+     */
+    public function getAdvId(): ?string
+    {
+        if($this->advId === null) {
+            $list = $this->request('advanced-balances');
+
+            $this->advId = $list[0]['advancedBalanceId'] ?? null;
+        }
+
+        return $this->advId;
     }
 }
